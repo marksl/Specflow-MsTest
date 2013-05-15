@@ -8,7 +8,7 @@ namespace Calculator.Tests
         [TestMethod]
         public void Add_TwoNumbers_ReturnsSum()
         {
-            var calculator = new Calculator();
+            var calculator = new Calc();
             
             var sum = calculator.Add(1, 2);
 
