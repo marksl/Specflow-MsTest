@@ -31,9 +31,6 @@ namespace DataMerger.Tests
             Assert.IsNull(existingUser);
         }
 
-        // Given database does not have a user with Id 1 
-        // When Merge user with Id 1 
-        // Then database has user with Id 1
         [TestMethod]
         [TestCase("After merging one user is added.", "mark.lamley")]
         public void Merge_MergeUserInDatabaseWithNoUsers_OneUserIsAdded()
@@ -51,10 +48,6 @@ namespace DataMerger.Tests
             Assert.IsNotNull(existingUser);
         }
 
-        // Given database has User with Id 1 
-        // Given User with Id1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]
-        // When Merge user with Id 1 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]
-        // Then database has user Id 1 and addresses [foo1@gr.com|Inactive, foo2@gr.com|Active, foo3@gr.com|Active]
         [TestMethod]
         [TestCase("After merging the user has 1 address deactivated and a new address added.", "mark.lamley")]
         public void Merge_DatabaseHasOneUserWithTwoAddressesAndMergeUserWithTwoDifferentAddresses_ResultingUserHasThreeAddressesOneIsDisabled()
@@ -97,11 +90,6 @@ namespace DataMerger.Tests
                 existingUser.EmailAddresses);
         }
 
-        // Given database has user with Id 1 
-        // Given User with Id 1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]
-        // When Merge user with Id 2 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]
-        // Then database has user Id 1 and addresses [foo1@gr.com|Active, foo2@gr.com|Active]
-        // Then database does not have User with Id 2
         [TestMethod]
         [TestCase("After merging the user is not changed and the conflicting user is not added.", "mark.lamley")]
         public void Merge_DatabaseHasOneUserWithTwoAddressesAndMergeADifferentUserWhereOneOfTheAddressesMatch_User1IsNotChangedAndUser2IsNotMerged()
