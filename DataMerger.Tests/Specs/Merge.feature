@@ -9,7 +9,6 @@ Scenario: Merge one user
     When Merge User with Id 1 
     Then database has user with Id 1
 
-
 @Author:John.Smith
 @Jira:SMG-1374,SMG-223
 Scenario: Merge one user alias. Deactivate an alias that was deleted.

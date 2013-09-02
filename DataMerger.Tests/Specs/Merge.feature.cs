@@ -140,15 +140,15 @@ Then:database has user Id 1 and addresses [foo1@gr.com|Inactive, foo2@gr.com|Act
         public virtual void MergeOneUserAlias_DeactivateAnAliasThatWasDeleted_()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Merge one user alias. Deactivate an alias that was deleted.", ((string[])(null)));
-#line 15
+#line 14
 this.ScenarioSetup(scenarioInfo);
-#line 16
+#line 15
  testRunner.Given("database has User with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 17
+#line 16
     testRunner.Given("database User with Id 1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
+#line 17
     testRunner.When("Merge User with Id 1 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 19
+#line 18
  testRunner.Then("database has user Id 1 and addresses [foo1@gr.com|Inactive, foo2@gr.com|Active, f" +
                     "oo3@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -170,17 +170,17 @@ Then:database does not have User with Id 2")]
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Merge a second user. The user is not merged because someone has already claimed t" +
                     "heir aliases.", ((string[])(null)));
-#line 23
+#line 22
 this.ScenarioSetup(scenarioInfo);
-#line 24
+#line 23
  testRunner.Given("database has User with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 25
+#line 24
     testRunner.Given("database User with Id 1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 26
+#line 25
     testRunner.When("Merge User with Id 2 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 27
+#line 26
     testRunner.Then("database has user Id 1 and addresses [foo1@gr.com|Active, foo2@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 28
+#line 27
     testRunner.Then("database does not have User with Id 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
