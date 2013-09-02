@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("DataMerger")]
+[assembly: AssemblyTitle("MyGenerator.Generator.SpecflowPlugin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DataMerger")]
+[assembly: AssemblyProduct("MyGenerator.Generator.SpecflowPlugin")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: Guid("cd459922-0ac7-4a88-8e0d-8684200690fb")]
+[assembly: Guid("8bc7ede8-77a7-489b-acda-34f3543c55d1")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

@@ -24,8 +24,36 @@ namespace DataMerger.Tests.Specs
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
+        private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext;
+        
+        private TestLogConnector.TestCase testCase;
+        
 #line 1 "Merge.feature"
 #line hidden
+        
+        public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
+        {
+            get
+            {
+                return this.testContext;
+            }
+            set
+            {
+                this.testContext = value;
+            }
+        }
+        
+        public virtual TestLogConnector.TestCase TestCase
+        {
+            get
+            {
+                return this.testCase;
+            }
+            set
+            {
+                this.testCase = value;
+            }
+        }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
@@ -45,6 +73,11 @@ namespace DataMerger.Tests.Specs
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute()]
         public virtual void TestInitialize()
         {
+            if (TestContext != null)
+            {
+                TestCase = new TestLogConnector.TestCase(GetType(), TestContext.TestName);
+            }
+
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
                         && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "Merge")))
             {
@@ -55,6 +88,11 @@ namespace DataMerger.Tests.Specs
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute()]
         public virtual void ScenarioTearDown()
         {
+           if (TestContext != null)
+            {
+                TestCase.WriteFinishedTestToTestLog(TestContext.CurrentTestOutcome.ToString());
+            }
+
             testRunner.OnScenarioEnd();
         }
         
@@ -68,49 +106,62 @@ namespace DataMerger.Tests.Specs
             testRunner.CollectScenarioErrors();
         }
         
+        [TestLogConnector.TestCaseAttribute("Merge one user", "John.Smith", "SMG-1375")]
+        [TestLogConnector.TestCaseComment("Given:database is empty\nGiven:database does not have a user with Id 1\nWhen:Merge " +
+            "User with Id 1\nThen:database has user with Id 1")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Merge one user")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Merge")]
         public virtual void MergeOneUser()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Merge one user", ((string[])(null)));
-#line 4
-this.ScenarioSetup(scenarioInfo);
-#line 5
- testRunner.Given("database is empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
- testRunner.Given("database does not have a user with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 7
-    testRunner.When("Merge user with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("database is empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
+ testRunner.Given("database does not have a user with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 9
+    testRunner.When("Merge User with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 10
     testRunner.Then("database has user with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
+        [TestLogConnector.TestCaseAttribute("Merge one user alias. Deactivate an alias that was deleted.", "John.Smith", "SMG-1374,SMG-223")]
+        [TestLogConnector.TestCaseComment(@"Given:database has User with Id 1
+Given:database User with Id 1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]
+When:Merge User with Id 1 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]
+Then:database has user Id 1 and addresses [foo1@gr.com|Inactive, foo2@gr.com|Active, foo3@gr.com|Active]")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Merge one users aliases. Deactivate alias that was deleted.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Merge one user alias. Deactivate an alias that was deleted.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Merge")]
-        public virtual void MergeOneUsersAliases_DeactivateAliasThatWasDeleted_()
+        public virtual void MergeOneUserAlias_DeactivateAnAliasThatWasDeleted_()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Merge one users aliases. Deactivate alias that was deleted.", ((string[])(null)));
-#line 10
-this.ScenarioSetup(scenarioInfo);
-#line 11
- testRunner.Given("database is empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 12
- testRunner.Given("database has User with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
-    testRunner.Given("database User with Id1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
-    testRunner.When("Merge user with Id 1 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Merge one user alias. Deactivate an alias that was deleted.", ((string[])(null)));
 #line 15
+this.ScenarioSetup(scenarioInfo);
+#line 16
+ testRunner.Given("database has User with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 17
+    testRunner.Given("database User with Id 1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+    testRunner.When("Merge User with Id 1 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
  testRunner.Then("database has user Id 1 and addresses [foo1@gr.com|Inactive, foo2@gr.com|Active, f" +
                     "oo3@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
+        [TestLogConnector.TestCaseAttribute("Merge a second user. The user is not merged because someone has already claimed t" +
+            "heir aliases.", "Sally.Mae", "SMG-1376")]
+        [TestLogConnector.TestCaseComment(@"Given:database has User with Id 1
+Given:database User with Id 1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]
+When:Merge User with Id 2 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]
+Then:database has user Id 1 and addresses [foo1@gr.com|Active, foo2@gr.com|Active]
+Then:database does not have User with Id 2")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Merge a second user. The user is not merged because someone has already claimed t" +
             "heir aliases.")]
@@ -119,17 +170,17 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Merge a second user. The user is not merged because someone has already claimed t" +
                     "heir aliases.", ((string[])(null)));
-#line 17
+#line 23
 this.ScenarioSetup(scenarioInfo);
-#line 18
+#line 24
  testRunner.Given("database has User with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
-    testRunner.Given("database User with Id1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 20
-    testRunner.When("Merge user with Id 2 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
+#line 25
+    testRunner.Given("database User with Id 1 has addresses [foo1@gr.com|Active, foo2@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 26
+    testRunner.When("Merge User with Id 2 and addresses [foo2@gr.com|Active, foo3@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 27
     testRunner.Then("database has user Id 1 and addresses [foo1@gr.com|Active, foo2@gr.com|Active]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 22
+#line 28
     testRunner.Then("database does not have User with Id 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

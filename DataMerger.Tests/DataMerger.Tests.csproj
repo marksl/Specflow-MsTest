@@ -63,9 +63,10 @@
     </Compile>
     <Compile Include="MergerTests.cs" />
     <Compile Include="Specs\MergeSteps.cs" />
-    <Compile Include="MyPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCase.cs" />
     <Compile Include="TestCaseAttribute.cs" />
+    <Compile Include="TestCaseComment.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataMerger\DataMerger.csproj">
@@ -74,7 +75,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Specs\Merge.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Merge.feature.cs</LastGenOutput>
