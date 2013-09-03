@@ -1,14 +1,10 @@
 ﻿using System;
 using System.CodeDom;
 using System.Linq;
-using MyGenerator.Generator.SpecflowPlugin;
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.UnitTestProvider;
-using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.Utils;
-
-[assembly: GeneratorPlugin(typeof(MyGeneratorPlugin))]
 
 namespace MyGenerator.Generator.SpecflowPlugin
 {
@@ -93,45 +89,45 @@ namespace MyGenerator.Generator.SpecflowPlugin
         }
 
 
-        public override void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string scenarioTitle)
+    public override void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string scenarioTitle)
+    {
+        foreach (var scenario in generationContext.Feature.Scenarios)
         {
-            foreach (var scenario in generationContext.Feature.Scenarios)
+            if (scenario.Title == scenarioTitle)
             {
-                if (scenario.Title == scenarioTitle)
+                string title = scenarioTitle;
+
+                if (scenario.Tags != null)
                 {
-                    string title = scenarioTitle;
+                    Tag Author = scenario.Tags.FirstOrDefault(x => x.Name.StartsWith("Author"));
+                    Tag jira = scenario.Tags.FirstOrDefault(x => x.Name.StartsWith("Jira"));
 
-                    if (scenario.Tags != null)
+                    if (Author != null && jira != null)
                     {
-                        Tag Author = scenario.Tags.FirstOrDefault(x => x.Name.StartsWith("Author"));
-                        Tag jira = scenario.Tags.FirstOrDefault(x => x.Name.StartsWith("Jira"));
+                        scenario.Tags.Remove(Author);
+                        scenario.Tags.Remove(jira);
 
-                        if (Author != null && jira != null)
-                        {
-                            scenario.Tags.Remove(Author);
-                            scenario.Tags.Remove(jira);
+                        var authorText = Author.Name.Split(new[] {':'}, StringSplitOptions.RemoveEmptyEntries)[1];
+                        var jiraText = jira.Name.Split(new[] { ':'}, StringSplitOptions.RemoveEmptyEntries) [1];
 
-                            var authorText = Author.Name.Split(new[] {':'}, StringSplitOptions.RemoveEmptyEntries)[1];
-                            var jiraText = jira.Name.Split(new[] { ':'}, StringSplitOptions.RemoveEmptyEntries) [1];
-
-                            testMethod.CustomAttributes.Add(
-                                new CodeAttributeDeclaration(
-                                    "TestLogConnector.TestCaseAttribute",
-                                    new CodeAttributeArgument(new CodePrimitiveExpression(title)),
-                                    new CodeAttributeArgument(new CodePrimitiveExpression(authorText)),
-                                    new CodeAttributeArgument(new CodePrimitiveExpression(jiraText))));
-                        }
-                    }
-
-                    var text = string.Join("\n", scenario.Steps.Select(c => c.StepKeyword.ToString() + ":" + c.Text));
-                    testMethod.CustomAttributes.Add(
+                        testMethod.CustomAttributes.Add(
                             new CodeAttributeDeclaration(
-                                "TestLogConnector.TestCaseComment",
-                                new CodeAttributeArgument(new CodePrimitiveExpression(text))));
+                                "TestLogConnector.TestCaseAttribute",
+                                new CodeAttributeArgument(new CodePrimitiveExpression(title)),
+                                new CodeAttributeArgument(new CodePrimitiveExpression(authorText)),
+                                new CodeAttributeArgument(new CodePrimitiveExpression(jiraText))));
+                    }
                 }
-            }
 
-            base.SetTestMethod(generationContext, testMethod, scenarioTitle);
+                var text = string.Join("\n", scenario.Steps.Select(c => c.StepKeyword.ToString() + ":" + c.Text));
+                testMethod.CustomAttributes.Add(
+                        new CodeAttributeDeclaration(
+                            "TestLogConnector.TestCaseComment",
+                            new CodeAttributeArgument(new CodePrimitiveExpression(text))));
+            }
         }
+
+        base.SetTestMethod(generationContext, testMethod, scenarioTitle);
+    }
     }
 }

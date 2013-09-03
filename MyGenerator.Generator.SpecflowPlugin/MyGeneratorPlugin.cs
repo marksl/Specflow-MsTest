@@ -1,7 +1,11 @@
 ﻿using BoDi;
+using MyGenerator.Generator.SpecflowPlugin;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.Generator.Plugins;
 using TechTalk.SpecFlow.Generator.UnitTestProvider;
+using TechTalk.SpecFlow.Infrastructure;
+
+[assembly: GeneratorPlugin(typeof(MyGeneratorPlugin))]
 
 namespace MyGenerator.Generator.SpecflowPlugin
 {
